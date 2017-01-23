@@ -5,16 +5,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.TextStyle;
-import java.util.Date;
 import java.util.Locale;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class Message {
-//	private Date date = new Date();
 	private LocalDateTime date = LocalDateTime.now();
 	private String from;
 	private String to;

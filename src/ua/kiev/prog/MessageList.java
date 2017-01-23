@@ -7,7 +7,6 @@ import com.google.gson.GsonBuilder;
 
 public class MessageList {
 	private static final MessageList msgList = new MessageList();
-//    private static final int LIMIT = 100;
 
     private final Gson gson;
 	private final List<Message> list = new LinkedList<Message>();
@@ -21,14 +20,10 @@ public class MessageList {
 	}
 	
 	public synchronized void add(Message m) {
-//	    if (list.size() + 1 == LIMIT) {
-//	        list.remove(0);
-//        }
 		list.add(m);
 	}
 	
 	public synchronized String toJSON(long n) { // n - unixTime
-//		if (n == list.size()) return null;
 		return gson.toJson(new JsonMessages(list, n));
 	}
 
