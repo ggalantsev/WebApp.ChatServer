@@ -9,22 +9,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class GetListServlet extends HttpServlet {
-	
-	private MessageList msgList = MessageList.getInstance();
+	private RoomList roomList = RoomList.getInstance();
+
 
     @Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String fromStr = req.getParameter("from");
-		long from = 0;
+    	String fromStr = req.getParameter("from");
+		if (fromStr==null||fromStr.equals("")){fromStr = "0";}
+    	String room = req.getParameter("room");
+    	if (room==null||room.equals("")){room = "Main";}
+		long from;
 		try {
-			if(fromStr.equals("")){} //show all if empty
-			else from = Integer.parseInt(fromStr);
+			 from = Integer.parseInt(fromStr);
 		} catch (Exception ex) {
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             return;
 		}
 		
-		String json = msgList.toJSON(from); // from - unix timestamp
+		String json = roomList.getMessageList(room).toJSON(from); // from - unix timestamp
 		if (json != null) {
 			OutputStream os = resp.getOutputStream();
             byte[] buf = json.getBytes(StandardCharsets.UTF_8);

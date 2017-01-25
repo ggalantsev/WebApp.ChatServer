@@ -16,8 +16,9 @@ public class Message {
 	private String from;
 	private String to;
 	private String text;
+	private String room;
 
-	public Message(String from, String text) {
+	public Message(String from, String text, String room) {
 		this.from = from;
 		this.text = text;
 	}
@@ -52,17 +53,14 @@ public class Message {
 		
 		conn.setRequestMethod("POST");
 		conn.setDoOutput(true);
-	
-		OutputStream os = conn.getOutputStream();
-		try {
+
+		try (OutputStream os = conn.getOutputStream()) {
 			String json = toJSON();
 			os.write(json.getBytes(StandardCharsets.UTF_8));
 			return conn.getResponseCode();
-		} finally {
-			os.close();
 		}
 	}
-	
+
 	public LocalDateTime getDate() {
 		return date;
 	}
@@ -100,5 +98,13 @@ public class Message {
 
 	public void setText(String text) {
 		this.text = text;
+	}
+
+	public String getRoom() {
+		return room;
+	}
+
+	public void setRoom(String room) {
+		this.room = room;
 	}
 }

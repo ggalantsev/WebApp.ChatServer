@@ -1,25 +1,21 @@
 package ua.kiev.prog;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class MessageList {
-	private static final MessageList msgList = new MessageList();
 
     private final Gson gson;
-	private final List<Message> list = new LinkedList<Message>();
-	
-	public static MessageList getInstance() {
-		return msgList;
+	private final List<Message> list = new LinkedList<>();
+//	private final SortedSet<String> users = new TreeSet<>(String::compareToIgnoreCase); // users in room
+
+	public MessageList() {
+		gson = new GsonBuilder().setPrettyPrinting().create();
 	}
-  
-  	private MessageList() {
-		gson = new GsonBuilder().create();
-	}
-	
-	public synchronized void add(Message m) {
+
+  	public synchronized void addMessage(Message m) {
 		list.add(m);
 	}
 	
@@ -27,7 +23,10 @@ public class MessageList {
 		return gson.toJson(new JsonMessages(list, n));
 	}
 
-	public List<Message> getList() {
+	public List<Message> getList(){
 		return list;
 	}
+
+
+
 }

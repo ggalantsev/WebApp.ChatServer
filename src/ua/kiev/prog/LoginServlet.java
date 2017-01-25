@@ -19,7 +19,7 @@ public class LoginServlet extends HttpServlet{
         String[] loginPass = s.split(":");
         System.out.println("New login request");
         System.out.println("Login: "+loginPass[0] +", Password: "+ loginPass[1] +".");
-        int autorize = UserList.autorize(loginPass[0], loginPass[1]);
+        int autorize = UserList.autorize(loginPass[0], loginPass[1],req.getSession());
         if (autorize==1){
             System.out.println("1: Login success!");
             resp.setStatus(HttpServletResponse.SC_OK);
